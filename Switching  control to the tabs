@@ -1,0 +1,44 @@
+package org.test;
+
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AmazonWindows {
+	public static void main(String[] args) {
+		System.setProperty("webdriver.chrome.driver", "C:\\Users\\ARAVIND KUMAR M\\eclipse-workspace\\Facebook\\Driver\\chromedriver.exe");
+		WebDriver driver=new ChromeDriver();
+		driver.get("https://www.amazon.in/");
+	    driver.manage().window().maximize();
+	    
+	    WebElement SearchBar = driver.findElement(By.id("twotabsearchtextbox"));
+	    SearchBar.sendKeys("redmi",Keys.ENTER);
+	   
+	    
+	    WebElement redmi = driver.findElement(By.xpath("//span[text()='Redmi 9 Activ (Coral Green, 4GB RAM, 64GB Storage)']"));
+	    redmi.click();
+	    
+	    String ParentWindow = driver.getWindowHandle();
+	    System.out.println(ParentWindow);
+	    
+	    Set<String> AllWindow = driver.getWindowHandles();
+	    System.out.println(AllWindow);
+	    
+	    for (String EachWindow : AllWindow) {
+	    	if (ParentWindow !=EachWindow) {
+	    		driver.switchTo().window(EachWindow);
+				
+			}
+			
+		}
+	    
+	      WebElement addtocart = driver.findElement(By.id("add-to-cart-button"));
+	    addtocart.click();
+	    
+	}
+
+}
